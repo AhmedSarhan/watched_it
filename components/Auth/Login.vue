@@ -1,0 +1,120 @@
+<template>
+  <div class="form-container">
+    <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
+      <b-form-group
+        class="my-3"
+        id="input-group-1"
+        label="Email address:"
+        label-for="input-1"
+      >
+        <b-form-input
+          id="input-1"
+          v-model="user.email"
+          type="email"
+          placeholder="Enter your email"
+          required
+        ></b-form-input>
+        <small class="text-danger text-center" v-if="errors && errors.email">
+          {{ errors.email }}
+        </small>
+      </b-form-group>
+
+      <b-form-group
+        class="my-3"
+        id="input-group-2"
+        label="Your password:"
+        label-for="input-2"
+      >
+        <b-form-input
+          id="input-2"
+          v-model="user.password"
+          type="password"
+          placeholder="Enter your password"
+          required
+        ></b-form-input>
+        <small class="text-danger text-center" v-if="errors && errors.password">
+          {{ errors.password }}
+        </small>
+      </b-form-group>
+      <b-button
+        type="submit"
+        class="d-block mx-auto py-2 px-5"
+        variant="primary"
+        >Login</b-button
+      >
+      <small class="text-center text-danger" v-if="login_error">
+        {{ login_error }}
+      </small>
+    </b-form>
+
+    <p class="my-3">
+      Don't have an account?
+      <button
+        class="btn btn-link"
+        @click="changeToRegisterHandler"
+        style="vertical-align: initial; padding: 0"
+      >
+        Sign up
+      </button>
+      now!
+    </p>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      errors: {
+        email: null,
+        password: null,
+      },
+      login_error: null,
+      user: {
+        email: "",
+        password: "",
+      },
+    };
+  },
+  methods: {
+    onSubmit() {
+      console.log(this.user);
+      this.$auth
+        .loginWith("local", {
+          data: {
+            email: this.user.email,
+            password: this.user.password,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          this.$router.push("/");
+        })
+        .catch((err) => {
+          this.login_error = err?.response?.data?.message;
+          this.errors.email = err.response?.data?.errors?.email?.msg;
+          this.errors.password = err.response?.data?.errors?.password?.msg;
+        });
+      // this.onReset();
+    },
+    onReset() {
+      // Reset our form values
+      this.user.email = "";
+      this.user.password = "";
+      // Trick to reset/clear native browser form validation state
+    },
+    changeToRegisterHandler() {
+      this.$emit("register");
+    },
+  },
+};
+</script>
+<style lang="scss" scoped>
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #cccc;
+  padding: 10px 15px;
+  box-shadow: 0 2px 2px 4px #eee;
+}
+</style>
