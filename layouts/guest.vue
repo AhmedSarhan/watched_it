@@ -1,5 +1,6 @@
 <template>
   <div>
+    <theme-switch />
     <Nuxt />
   </div>
 </template>

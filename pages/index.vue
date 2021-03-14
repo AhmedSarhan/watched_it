@@ -3,9 +3,6 @@
     <div>
       <h3>Hello {{ this.$auth.user.username }}</h3>
     </div>
-    <div>
-      <TheHeader />
-    </div>
   </div>
 </template>
 

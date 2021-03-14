@@ -1,5 +1,11 @@
 <template>
   <div class="form-container">
+    <div class="d-flex justify-content-center align-center my-3">
+      <b-avatar
+        size="5em"
+        :variant="$colorMode.preference === 'light' ? 'dark' : 'light'"
+      ></b-avatar>
+    </div>
     <b-form @submit.prevent="onSubmit" @reset.prevent="onReset">
       <b-form-row>
         <b-col cols="6" xs="12">
@@ -245,8 +251,8 @@ export default {
 .form-container {
   width: 100%;
   max-width: 500px;
-  border: 1px solid #cccc;
+  border: 1px solid var(--border-color);
   padding: 10px 15px;
-  box-shadow: 0 2px 2px 4px #eee;
+  box-shadow: 0 2px 2px 4px var(--bg-secondary);
 }
 </style>
