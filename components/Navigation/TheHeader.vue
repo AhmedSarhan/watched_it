@@ -6,7 +6,7 @@
       :variant="$colorMode.preference === 'light' ? 'dark' : 'light'"
     >
       <div class="container">
-        <b-navbar-brand>
+        <b-navbar-brand style="cursor: pointer">
           <nuxt-link to="/" tag="h5">
             <img
               src="https://img.icons8.com/pastel-glyph/64/000000/film-reel--v1.png"
@@ -22,52 +22,38 @@
             <b-nav-item-dropdown no-caret>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>Movie</em>
+                <span>Movie</span>
               </template>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/movie/popular">
-                  Most Popular
-                </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/movie/popular"> Latest </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/movie/playing">
-                  In Theatre now
-                </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/movie/upcoming">
-                  Cooming Soon
-                </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/movie/top-rated"> Top Rated </nuxt-link>
-              </b-dropdown-item>
+              <nuxt-link tag="b-dropdown-item" to="/movie/popular">
+                Most Popular
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/movie/playing">
+                In Theatre now
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/movie/upcoming">
+                Cooming Soon
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/movie/top-rated">
+                Top Rated
+              </nuxt-link>
             </b-nav-item-dropdown>
             <b-nav-item-dropdown no-caret>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>Tv Series</em>
+                <span>Tv Series</span>
               </template>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/shows/popular">
-                  Most Popular
-                </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/shows/popular"> Latest </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/shows/airing-now"> On TV </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/shows/today"> Airing Today </nuxt-link>
-              </b-dropdown-item>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/shows/top-rated"> Top Rated </nuxt-link>
-              </b-dropdown-item>
+              <nuxt-link tag="b-dropdown-item" to="/shows/popular">
+                Most Popular
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/shows/airing-now">
+                On TV
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/shows/today">
+                Airing Today
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/shows/top-rated">
+                Top Rated
+              </nuxt-link>
             </b-nav-item-dropdown>
           </b-navbar-nav>
 
@@ -78,19 +64,34 @@
                 size="sm"
                 class="mr-sm-2"
                 placeholder="Search"
+                v-model="searchQuery"
+                required
               ></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit"
+              <b-button
+                size="sm"
+                @click="searchHandler"
+                class="my-2 my-sm-0"
+                type="submit"
                 >Search</b-button
               >
             </b-nav-form>
             <b-nav-item-dropdown class="ml-auto" no-caret dropleft>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <em>User</em>
+                <i class="fas fa-user-circle"></i>
+                <span>User</span>
               </template>
-              <b-dropdown-item>
-                <nuxt-link tag="p" to="/profile"> Profile </nuxt-link>
-              </b-dropdown-item>
+              <nuxt-link tag="b-dropdown-item" to="/profile">
+                Profile
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/watch-list">
+                <i class="fas fa-bookmark"></i>
+                watchList
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/favorites">
+                <i class="fas fa-star"></i>
+                Favorites
+              </nuxt-link>
               <b-dropdown-item @click="signOutHandler"
                 >Sign Out</b-dropdown-item
               >
@@ -103,11 +104,26 @@
 </template>
 
 <script>
+import { mapActions } from "vuex";
 export default {
+  data() {
+    return {
+      searchQuery: null,
+    };
+  },
   methods: {
     async signOutHandler() {
       await this.$auth.logout();
       this.$router.push("/auth");
+    },
+    ...mapActions(["searchMovies"]),
+    searchHandler(event) {
+      event.preventDefault();
+      this.searchMovies(this.searchQuery);
+      this.$router.push({
+        path: "/search",
+        query: { search: this.searchQuery },
+      });
     },
   },
 };

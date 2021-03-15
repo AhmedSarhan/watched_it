@@ -20,6 +20,9 @@ export default {
       })
       .catch((err) => {
         console.log("Error: " + err);
+        if (err === "Error: read ECONNRESET") {
+          vm.$forceUpdate();
+        }
       });
   },
 };

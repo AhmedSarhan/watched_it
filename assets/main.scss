@@ -6,6 +6,7 @@
     --bg-secondary: #f3f5f4;
     --border-color: #ddd;
     --border-secondary: #222629;
+    --golden: #f5c518;
 }
 
 .dark-mode {
@@ -16,6 +17,8 @@
     --bg-secondary: #071521;
     --border-color: #474b4f;
     --border-secondary: #fff;
+    --golden: #f5c518;
+
 }
 
 .sepia-mode {
@@ -25,6 +28,7 @@
     --bg-secondary: #eae0c9;
     --border-color: #fff;
     --border-secondary: #222629;
+    --golden: #f5c518;
 }
 
 body {
@@ -39,6 +43,15 @@ body {
 .far {
     font-family: 'FontAwesome';
     font-style: initial;
+}
+
+a,
+button {
+    outline: none !important;
+
+    &:focus {
+        outline: none !important;
+    }
 }
 
 .theme-switch {
@@ -95,4 +108,50 @@ body {
         }
 
     }
+}
+
+i.fa-star {
+    color: var(--golden);
+}
+
+i.fa-clock {
+    &::before {
+        content: '\f017';
+    }
+}
+
+.btn-golden {
+    background-color: var(--golden);
+    color: #fff;
+    border-radius: 5px;
+
+}
+
+.btn-outline-golden {
+    background-color: transparent;
+    border: 1px solid var(--golden);
+    border-radius: 5px;
+    color: var(--golden);
+
+    &:hover {
+        color: var(--color-secondary);
+    }
+}
+
+
+.slick-prev:before,
+.slick-next:before {
+    color: var(--golden) !important;
+    opacity: 1 !important;
+}
+
+.slick-dots {
+    bottom: -10px !important;
+}
+
+.slick-dots li button:before,
+.slick-dots li.slick-active button:before {
+    color: var(--golden) !important;
+    font-size: 18px;
+
 }
