@@ -26,7 +26,7 @@
       </small>
     </div>
     <div class="card-actions">
-      <div class="d-flex justify-content-around align-center my-2">
+      <div class="d-flex flex-wrap justify-content-around align-center my-2">
         <div>
           <button class="btn btn-outline-golden">
             <i class="far fa-plus"></i>

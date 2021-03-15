@@ -1,7 +1,7 @@
 <template>
   <div class="container my-2">
     <div class="container my-3" v-if="playingList.length">
-      <div class="d-flex justify-content-start my-3">
+      <div class="d-flex flex-wrap justify-content-start my-3">
         <div class="mr-4">
           <h2 class="slider-title">Currently Playing</h2>
         </div>
@@ -38,7 +38,7 @@
     </div>
 
     <div class="container my-3" v-if="top_ratedList.length">
-      <div class="d-flex justify-content-start my-3">
+      <div class="d-flex flex-wrap justify-content-start my-3">
         <div class="mr-4">
           <h2 class="slider-title">Top Rated</h2>
         </div>
@@ -77,7 +77,7 @@
       <movie-slider :movies="top_ratedList" />
     </div>
     <div class="container my-3" v-if="upcomingList.length">
-      <div class="d-flex justify-content-start my-3">
+      <div class="d-flex flex-wrap justify-content-start my-3">
         <div class="mr-4">
           <h2 class="slider-title">Up Coming</h2>
         </div>
@@ -113,7 +113,7 @@
       <movie-slider :movies="upcomingList" />
     </div>
     <div class="container my-3" v-if="popularList.length">
-      <div class="d-flex justify-content-start my-3">
+      <div class="d-flex flex-wrap justify-content-start my-3">
         <div class="mr-4">
           <h2 class="slider-title">Popular</h2>
         </div>
