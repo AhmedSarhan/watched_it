@@ -2,7 +2,7 @@ const Sequelize = require('sequelize').Sequelize;
 
 const sequelize = require('../utils/db');
 
-const FavoritesItem = sequelize.define('favoritesItem', {
+const FavoritesItem = sequelize.define('favorites_item', {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,

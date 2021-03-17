@@ -9,10 +9,6 @@ const Movie = sequelize.define('movie', {
     allowNull: false,
     primaryKey: true,
   },
-  genres: {
-    type: Sequelize.TEXT,
-    allowNull: false,
-  },
   title: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -21,15 +17,15 @@ const Movie = sequelize.define('movie', {
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  poster: {
+  poster_path: {
     type: Sequelize.TEXT,
     allowNull: false,
   },
-  releaseDate: {
+  release_date: {
     type: Sequelize.DATE,
     allowNull: false,
   },
-  vote_avg: {
+  vote_average: {
     type: Sequelize.DOUBLE,
     allowNull: false,
   },

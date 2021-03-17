@@ -1,7 +1,11 @@
 <template>
   <div class="card">
     <div class="fav-icon">
-      <i class="far fa-bookmark">
+      <i
+        class="far fa-bookmark"
+        @click="addToFavorites"
+        style="cursor: pointer"
+      >
         <i class="fas fa-star"></i>
       </i>
     </div>
@@ -28,15 +32,15 @@
     <div class="card-actions">
       <div class="d-flex flex-wrap justify-content-around align-center my-2">
         <div>
-          <button class="btn btn-outline-golden">
-            <i class="far fa-plus"></i>
-            WatchList
+          <button class="btn btn-outline-golden" @click="addToWatchList(false)">
+            <i class="fas fa-trash-alt" v-if="watchList"></i>
+            <i class="far fa-plus" v-else></i> WatchList
           </button>
         </div>
         <div>
-          <button class="btn btn-outline-golden">
-            <i class="far fa-plus"></i>
-            Watched It
+          <button class="btn btn-outline-golden" @click="addToWatchList(true)">
+            <i class="fas fa-trash-alt" v-if="watchList && watched"></i>
+            <i class="far fa-plus" v-else></i> Watched It
           </button>
         </div>
       </div>
@@ -45,10 +49,87 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   props: ["movie"],
   mounted() {
     // get all the user watchlist, favorites, start comparing and set the different ui variables accordingly
+  },
+  data() {
+    return {
+      watchList: false,
+      favorite: false,
+      watched: false,
+    };
+  },
+  methods: {
+    addToWatchList(watchedState) {
+      let addedMovie = {
+        title: this.movie.title ? this.movie.title : this.movie.name,
+        id: this.movie.id,
+        overview: this.movie.overview,
+        poster_path: this.movie.poster_path,
+        release_date: this.movie.release_date
+          ? this.movie.release_date
+          : this.movie.first_air_date,
+        vote_average: this.movie.vote_average,
+        vote_count: this.movie.vote_count,
+      };
+      axios
+        .post(`/api/watch_list/${this.movie.id}`, {
+          movie: addedMovie,
+          watched: watchedState,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    removeFromWatchList() {
+      axios
+        .post(`/api/watch_list/delete/${this.movie.id}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    addToFavorites() {
+      let addedMovie = {
+        title: this.movie.title ? this.movie.title : this.movie.name,
+        id: this.movie.id,
+        overview: this.movie.overview,
+        poster_path: this.movie.poster_path,
+        release_date: this.movie.release_date
+          ? this.movie.release_date
+          : this.movie.first_air_date,
+        vote_average: this.movie.vote_average,
+        vote_count: this.movie.vote_count,
+      };
+      axios
+        .post(`/api/favorites/${this.movie.id}`, {
+          movie: addedMovie,
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    removeFromFavorites() {
+      axios
+        .post(`/api/watch_list/delete/${this.movie.id}`)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
   },
 };
 </script>

@@ -1,5 +1,7 @@
 const express = require('express');
 const sequelize = require('./utils/db');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const User = require('./models/user');
 const Favorites = require('./models/favorites');
 const FavoritesItem = require('./models/favorites-item');
@@ -16,11 +18,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Require & Import API routes
 const users = require('./routes/users');
-// const movies = require('./routes/movies');
+const movies = require('./routes/movies');
+
+app.use(cookieParser());
+app.use(
+  session({
+    secret: 'application_secret',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // Use API Routes
 app.use(users);
-// app.use(movies);
+app.use(movies);
 
 User.hasMany(Movie);
 User.hasOne(WatchList);
@@ -40,30 +51,11 @@ Favorites.belongsToMany(Movie, {
 
 let fetchedUser;
 sequelize
+  // .sync({ force: true })
   .sync()
-  // .then(() => {
-  //   return User.findByPk(1);
-  // })
-  // .then((user) => {
-  //   if (!user) {
-  //     return User.create({
-  //       username: 'Ahmed',
-  //       email: 'ahmedsarhan1515@gmail.com',
-  //       password: 'testing220220',
-  //     });
-  //   }
-  //   return user;
-  // })
-  // .then((user) => {
-  //   console.log('user is: ' + user);
   .then(() => {
     console.log('up and running');
-    // return User.findByPk(1)
   })
-  // .then((user) => {
-  //   fetchedUser = user;
-  //   return user.get
-  // })
   .catch((err) => {
     console.log('Error: ' + err);
   });

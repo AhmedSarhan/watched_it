@@ -190,20 +190,9 @@ export default {
           password: this.user.password,
         })
         .then((res) => {
-          console.log(res);
           if (res.data.id) {
-            this.$auth
-              .loginWith("local", {
-                email: this.user.email,
-                password: this.user.password,
-              })
-              .then((res) => {
-                this.onReset();
-                this.$router.push("/");
-              })
-              .catch((err) => {
-                console.log("Error" + err);
-              });
+            this.$emit("login");
+            this.onReset();
           }
         })
         .catch((err) => {

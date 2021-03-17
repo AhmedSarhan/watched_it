@@ -50,21 +50,22 @@ module.exports.register = [
 
     // save the new user in db
 
-    User.create(user).then((user) => {
-      return res
-        .status(200)
-        .json({
+    User.create(user)
+      .then(async (user) => {
+        await user.createFavorite();
+        await user.createWatch_list();
+        return res.status(200).json({
           message: 'saved',
           id: user.id,
-        })
-        .catch((err) => {
-          return res.status(500).json({
-            message:
-              'Something went wrong during Registering, please try again later',
-            error: err,
-          });
         });
-    });
+      })
+      .catch((err) => {
+        return res.status(500).json({
+          message:
+            'Something went wrong during Registering, please try again later',
+          error: err,
+        });
+      });
   },
 ];
 
@@ -106,7 +107,7 @@ module.exports.login = [
               email: user.email,
               username: user.username,
             };
-            req.user = loadedUser;
+            req.session.user = loadedUser;
             return res.status(200).json({
               user: {
                 ...loadedUser,
@@ -146,7 +147,6 @@ module.exports.user = function (req, res) {
       if (err) {
         return res.status(401).json({ message: 'Unauthorized' });
       } else {
-        console.log('decoded', decoded);
         return res.json({ user: decoded });
       }
     });

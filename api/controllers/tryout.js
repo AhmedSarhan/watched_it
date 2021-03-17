@@ -90,7 +90,7 @@ module.exports.login = [
               email: user.email,
               username: user.username,
             };
-            req.user = loadedUser;
+            req.session.user = loadedUser;
             return res.status(200).json({
               user: {
                 ...loadedUser,
