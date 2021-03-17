@@ -29,12 +29,7 @@ module.exports = {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   // VERCEL_URL = "https://watched-it.vercel.app/",
-  env: {
-    baseUrl:
-      'https://watched-it.vercel.app/' ||
-      'http://127.0.0.1:3000' ||
-      'http://localhost:3000',
-  },
+
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
@@ -46,19 +41,7 @@ module.exports = {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseUrl: process.env.baseUrl,
-  },
-
-  publicRuntimeConfig: {
-    axios: {
-      browserBaseURL: process.env.BROWSER_BASE_URL,
-    },
-  },
-
-  privateRuntimeConfig: {
-    axios: {
-      baseURL: process.env.BASE_URL,
-    },
+    baseUrl: process.env.baseUrl || 'http://localhost:3000',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
