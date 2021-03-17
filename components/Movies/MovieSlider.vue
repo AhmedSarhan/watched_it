@@ -66,7 +66,7 @@ export default {
   components: { VueSlickCarousel },
   async fetch() {
     //console.log("running");
-    await axios
+    await this.$axios
       .get("/api/watch_list", {
         params: {
           type: this.previewType,
@@ -92,7 +92,7 @@ export default {
       .catch((err) => {
         //console.log(err);
       });
-    await axios
+    await this.$axios
       .get("/api/watch_list", {
         params: {
           type: this.previewType,
@@ -119,7 +119,7 @@ export default {
       .catch((err) => {
         //console.log(err);
       });
-    await axios
+    await this.$axios
       .get("/api/favorites", {
         params: { type: this.previewType },
       })

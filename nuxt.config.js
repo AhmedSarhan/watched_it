@@ -28,9 +28,10 @@ module.exports = {
   buildModules: ['@nuxtjs/color-mode'],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
+  // VERCEL_URL = "https://watched-it.vercel.app/",
   env: {
     baseUrl:
-      process.env.VERCEL_URL ||
+      'https://watched-it.vercel.app/' ||
       'http://127.0.0.1:3000' ||
       'http://localhost:3000',
   },
