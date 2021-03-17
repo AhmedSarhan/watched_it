@@ -52,8 +52,11 @@ export default {
   },
   async fetch() {
     await axios
-      .get("/api/favorites", {
-        params: { type: this.previewType },
+      .get("/api/watch_list", {
+        params: {
+          type: this.previewType,
+          watched: true,
+        },
       })
       .then((res) => {
         //console.log(res);

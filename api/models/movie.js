@@ -33,6 +33,10 @@ const Movie = sequelize.define('movie', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  type: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
 });
 
 module.exports = Movie;

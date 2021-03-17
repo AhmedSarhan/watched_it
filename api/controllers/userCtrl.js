@@ -31,7 +31,7 @@ module.exports.register = [
   async function (req, res) {
     const errors = await validator.validationResult(req);
     if (!errors.isEmpty()) {
-      console.log(errors);
+      //console.log(errors);
       return res.status(422).json({
         errors: errors.mapped(),
       });
@@ -107,7 +107,7 @@ module.exports.login = [
               email: user.email,
               username: user.username,
             };
-            req.session.user = loadedUser;
+            req.session.userId = loadedUser.id;
             return res.status(200).json({
               user: {
                 ...loadedUser,

@@ -4,23 +4,41 @@ const Movie = require('../models/movie');
 
 // load the user watch list
 exports.getWatchList = (req, res, next) => {
-  const current_user = req.session.user;
-  // const watchType = req.body.type;
-  // const watchState = req.body.watched;
-  return current_user
-    .getWatch_list({ where: { id: 1 } })
+  const current_user_id = req.session.userId;
+  const watchType = req.query.type;
+  const watchStateStr = req.query.watched;
+  let watchState = watchStateStr === 'false' ? false : true;
+  let current_user;
+  return User.findByPk(current_user_id)
+    .then((user) => {
+      current_user = user;
+      return user.getWatch_list({ where: { id: 1 } });
+    })
     .then((watchlist) => {
-      if (!watchlist) {
-        return current_user.createWatch_list();
-      }
       return watchlist;
     })
     .then((watchlist) => {
-      return watchlist.getMovies();
+      if (!watchType) {
+        return watchlist.getMovies();
+      } else {
+        return watchlist.getMovies({
+          where: {
+            type: watchType,
+          },
+        });
+      }
     })
     .then((movies) => {
       if (movies.length > 0) {
-        return res.status(200).json({ movies: movies });
+        let newMovies = [];
+        for (movie in movies) {
+          if (movies[movie].watch_list_item.watched === watchState) {
+            newMovies.push(movies[movie]);
+          }
+        }
+        return res.status(200).json({ movies: newMovies });
+      } else {
+        return res.status(200).json({ message: 'No movies in watchlist yet' });
       }
     })
     .catch((err) => {
@@ -33,9 +51,9 @@ exports.getWatchList = (req, res, next) => {
 
 // add a movie to user watch list
 exports.postWatchList = (req, res, next) => {
-  const current_user_id = req.session.user.id;
-  // console.log(req);
-  console.log(req.session.user);
+  const current_user_id = req.session.userId;
+  //console.log(req);
+  //console.log(req.session.user);
   let movieId = req.params.id;
   let movieState = req.body.watched;
   let addedMovie = req.body.movie;
@@ -55,14 +73,17 @@ exports.postWatchList = (req, res, next) => {
     })
     .then((movie) => {
       movieLatestState = movie;
+      //console.log(current_user);
       return current_user.getWatch_list();
     })
     .then((watchlist) => {
       fetchedWatchList = watchlist;
-      return watchList.getMovies({ where: { id: addedMovie.id } });
+      //console.log(watchlist);
+      return watchlist.getMovies({ where: { id: movieId } });
     })
     .then((movies) => {
       let mov;
+      //console.log(movies);
       if (movies.length > 0) {
         mov = movies[0];
         return mov.watch_list_item.destroy(); // if it is in the list we will remove it to add the new state of watched in the created item
@@ -77,19 +98,25 @@ exports.postWatchList = (req, res, next) => {
       });
     })
     .then(() => {
-      return res.status(200);
+      return res.status(200).json({
+        message: 'movie addedd successfully',
+      });
     })
     .catch((err) => {
-      console.log('Error adding to watchList', err);
+      //console.log('Error adding to watchList', err);
     });
 };
 
 // remove a movie from the user watch list
 exports.deleteFromWatchList = (req, res, next) => {
-  const current_user = req.session.user;
+  const current_user_id = req.session.userId;
   let movieId = req.params.id;
-  return current_user
-    .getWatch_list()
+  let current_user;
+  return User.findByPk(current_user_id)
+    .then((user) => {
+      current_user = user;
+      return user.getWatch_list();
+    })
     .then((watchList) => {
       return watchList.getMovies({
         where: { id: movieId },
@@ -113,8 +140,9 @@ exports.deleteFromWatchList = (req, res, next) => {
 };
 // load the user favorites
 exports.getFavorites = (req, res, next) => {
-  const current_user_id = req.session.user.id;
-  // const favsType = req.body.type;
+  const current_user_id = req.session.userId;
+  const favsType = req.query.type;
+  //console.log('request', req);
   let current_user;
   return User.findByPk(current_user_id)
     .then((user) => {
@@ -122,17 +150,20 @@ exports.getFavorites = (req, res, next) => {
       return user.getFavorite({ where: { id: 1 } });
     })
     .then((favorite) => {
-      if (!favorite) {
-        return current_user.createFavorite();
-      } else {
+      if (!favsType) {
         return favorite.getMovies();
+      } else {
+        return favorite.getMovies({ where: { type: favsType } });
       }
     })
     .then((movies) => {
       if (movies.length > 0) {
+        //console.log(movies);
         return res.status(200).json({ movies: movies });
       } else {
-        return;
+        return res
+          .status(200)
+          .json({ message: 'no favorites yet for that user' });
       }
     })
     .catch((err) => {
@@ -145,7 +176,7 @@ exports.getFavorites = (req, res, next) => {
 
 // add a movie to the users favorite list
 exports.postFavorites = (req, res, next) => {
-  const current_user_id = req.session.user.id;
+  const current_user_id = req.session.userId;
   let movieId = req.params.id;
   let addedMovie = req.body.movie;
   let fetchedFavs;
@@ -164,10 +195,12 @@ exports.postFavorites = (req, res, next) => {
     })
     .then((movie) => {
       movieLatestState = movie;
+      //console.log(current_user);
       return current_user.getFavorite();
     })
     .then((favorite) => {
       fetchedFavs = favorite;
+      //console.log(favorite);
       return favorite.getMovies({ where: { id: movieId } });
     })
     .then((favMovie) => {
@@ -193,10 +226,14 @@ exports.postFavorites = (req, res, next) => {
 
 // remove a movie from the user favorite list
 exports.deleteFromFavorites = (req, res, next) => {
-  const current_user = req.session.user;
+  const current_user_id = req.session.userId;
   let movieId = req.params.id;
-  return current_user
-    .getFavorite()
+  let current_user;
+  return User.findByPk(current_user_id)
+    .then((user) => {
+      current_user = user;
+      return user.getFavorite();
+    })
     .then((favorite) => {
       return favorite.getMovies({ where: { id: movieId } });
     })

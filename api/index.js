@@ -1,6 +1,5 @@
 const express = require('express');
 const sequelize = require('./utils/db');
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const User = require('./models/user');
 const Favorites = require('./models/favorites');
@@ -20,7 +19,6 @@ app.use(express.urlencoded({ extended: true }));
 const users = require('./routes/users');
 const movies = require('./routes/movies');
 
-app.use(cookieParser());
 app.use(
   session({
     secret: 'application_secret',
@@ -54,10 +52,10 @@ sequelize
   // .sync({ force: true })
   .sync()
   .then(() => {
-    console.log('up and running');
+    //console.log('up and running');
   })
   .catch((err) => {
-    console.log('Error: ' + err);
+    //console.log('Error: ' + err);
   });
 
 // Export the server middleware

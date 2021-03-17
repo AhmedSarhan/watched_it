@@ -35,6 +35,9 @@ module.exports = {
     '@nuxtjs/axios',
     '@nuxtjs/auth',
   ],
+  bootstrapVue: {
+    icons: true,
+  },
   serverMiddleware: ['~/api/index.js'],
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)

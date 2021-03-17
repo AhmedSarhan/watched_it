@@ -42,12 +42,9 @@
           {{ errors.password }}
         </small>
       </b-form-group>
-      <b-button
-        type="submit"
-        class="d-block mx-auto py-2 px-5"
-        variant="primary"
-        >Login</b-button
-      >
+      <button type="submit" class="d-block mx-auto py-2 px-5 btn btn-golden">
+        Login
+      </button>
       <small class="text-center text-danger" v-if="login_error">
         {{ login_error }}
       </small>
@@ -92,7 +89,7 @@ export default {
           },
         })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
           this.$router.push("/");
         })
         .catch((err) => {

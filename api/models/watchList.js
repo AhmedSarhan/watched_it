@@ -9,11 +9,6 @@ const WatchList = sequelize.define('watch_list', {
     allowNull: false,
     primaryKey: true,
   },
-  watched: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false,
-    defaultValue: false,
-  },
 });
 
 module.exports = WatchList;

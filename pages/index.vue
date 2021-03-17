@@ -34,7 +34,7 @@
           </div>
         </div>
       </div>
-      <movie-slider :movies="playingList" />
+      <movie-slider :movies="playingList" :previewType="playing.current" />
     </div>
 
     <div class="container my-3" v-if="top_ratedList.length">
@@ -74,7 +74,7 @@
           </div>
         </div>
       </div>
-      <movie-slider :movies="top_ratedList" />
+      <movie-slider :movies="top_ratedList" :previewType="top_rated.current" />
     </div>
     <div class="container my-3" v-if="upcomingList.length">
       <div class="d-flex flex-wrap justify-content-start my-3">
@@ -110,7 +110,7 @@
           </div>
         </div>
       </div>
-      <movie-slider :movies="upcomingList" />
+      <movie-slider :movies="upcomingList" :previewType="upcoming.current" />
     </div>
     <div class="container my-3" v-if="popularList.length">
       <div class="d-flex flex-wrap justify-content-start my-3">
@@ -146,7 +146,7 @@
           </div>
         </div>
       </div>
-      <movie-slider :movies="popularList" />
+      <movie-slider :movies="popularList" :previewType="popular.current" />
     </div>
   </div>
 </template>
@@ -203,7 +203,7 @@ export default {
         this.playingList = [...res.data.results];
       })
       .catch((err) => {
-        console.log("Error: " + err);
+        //console.log("Error: " + err);
       });
     await axios({
       method: "get",
@@ -216,7 +216,7 @@ export default {
         this.upcomingList = [...res.data.results];
       })
       .catch((err) => {
-        console.log("Error: " + err);
+        //console.log("Error: " + err);
       });
     await axios({
       method: "get",
@@ -229,7 +229,7 @@ export default {
         this.top_ratedList = [...res.data.results];
       })
       .catch((err) => {
-        console.log("Error: " + err);
+        //console.log("Error: " + err);
       });
     await axios({
       method: "get",
@@ -240,15 +240,18 @@ export default {
         this.popularList = [...res.data.results];
       })
       .catch((err) => {
-        console.log("Error: " + err);
+        //console.log("Error: " + err);
       });
+  },
+  mounted() {
+    this.$fetch();
   },
   methods: {
     async switchHandler(recieved) {
-      console.log(recieved);
+      //console.log(recieved);
 
       if (recieved === "playing") {
-        console.log(recieved);
+        //console.log(recieved);
         this.playing.current === "movie"
           ? (this.playing.current = "tv")
           : (this.playing.current = "movie");
@@ -260,11 +263,11 @@ export default {
               : this.playing.tv,
         })
           .then((res) => {
-            console.log(res.data.results);
+            //console.log(res.data.results);
             this.playingList = [...res.data.results];
           })
           .catch((err) => {
-            console.log("Error: " + err);
+            //console.log("Error: " + err);
           });
       } else if (recieved === "upcoming") {
         this.upcoming.current === "movie"
@@ -281,7 +284,7 @@ export default {
             this.upcomingList = [...res.data.results];
           })
           .catch((err) => {
-            console.log("Error: " + err);
+            //console.log("Error: " + err);
           });
       } else if (recieved === "top_rated") {
         this.top_rated.current === "movie"
@@ -298,7 +301,7 @@ export default {
             this.top_ratedList = [...res.data.results];
           })
           .catch((err) => {
-            console.log("Error: " + err);
+            //console.log("Error: " + err);
           });
       } else if (recieved === "popular") {
         this.popular.current === "movie"
@@ -315,7 +318,7 @@ export default {
             this.popularList = [...res.data.results];
           })
           .catch((err) => {
-            console.log("Error: " + err);
+            //console.log("Error: " + err);
           });
       }
     },

@@ -3,16 +3,21 @@
     <div class="fav-icon">
       <i
         class="far fa-bookmark"
-        @click="addToFavorites"
+        @click="movie.favorite ? removeFromFavorites() : addToFavorites()"
         style="cursor: pointer"
       >
-        <i class="fas fa-star"></i>
+        <i class="fa fa-star" v-if="movie.favorite"></i>
+        <i class="fa fa-star-o" v-else></i>
       </i>
     </div>
     <img
       class="card-img-top"
-      :src="`https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`"
-      alt=""
+      :src="
+        movie.poster_path
+          ? `https://www.themoviedb.org/t/p/w220_and_h330_face/${movie.poster_path}`
+          : ''
+      "
+      :alt="movie.title"
     />
     <div class="card-body">
       <small>
@@ -30,17 +35,31 @@
       </small>
     </div>
     <div class="card-actions">
-      <div class="d-flex flex-wrap justify-content-around align-center my-2">
+      <div class="d-flex flex-wrap justify-content-center align-center my-2">
         <div>
-          <button class="btn btn-outline-golden" @click="addToWatchList(false)">
-            <i class="fas fa-trash-alt" v-if="watchList"></i>
+          <button
+            v-if="!(movie.watchList && movie.watched)"
+            class="btn btn-outline-golden mx-1"
+            @click="
+              movie.watchList ? removeFromWatchList() : addToWatchList(false)
+            "
+          >
+            <i class="fas fa-trash" v-if="movie.watchList"></i>
             <i class="far fa-plus" v-else></i> WatchList
           </button>
         </div>
         <div>
-          <button class="btn btn-outline-golden" @click="addToWatchList(true)">
-            <i class="fas fa-trash-alt" v-if="watchList && watched"></i>
-            <i class="far fa-plus" v-else></i> Watched It
+          <button
+            class="btn btn-outline-golden mx-1"
+            @click="
+              movie.watchList && movie.watched
+                ? removeFromWatchList()
+                : addToWatchList(true)
+            "
+          >
+            <i class="fas fa-trash" v-if="movie.watchList && movie.watched"></i>
+            <i class="far fa-plus" v-else></i>
+            {{ movie.watchList && movie.watched ? "WatchList" : "Watched It" }}
           </button>
         </div>
       </div>
@@ -52,18 +71,28 @@
 import axios from "axios";
 export default {
   props: ["movie"],
-  mounted() {
-    // get all the user watchlist, favorites, start comparing and set the different ui variables accordingly
-  },
-  data() {
-    return {
-      watchList: false,
-      favorite: false,
-      watched: false,
-    };
-  },
+  // async fetch() {
+  //   // get all the user watchlist, favorites, start comparing and set the different ui variables accordingly
+  //   await axios
+  //     .get(`/api/favorites/${this.movie.id}`)
+  //     .then((res) => {
+  //       //console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       //console.log(err);
+  //     });
+  //   await axios
+  //     .get(`/api/watch_list/${this.movie.id}`)
+  //     .then((res) => {
+  //       //console.log(res);
+  //     })
+  //     .catch((err) => {
+  //       //console.log(err);
+  //     });
+  // },
   methods: {
     addToWatchList(watchedState) {
+      //console.log("adding to watch list");
       let addedMovie = {
         title: this.movie.title ? this.movie.title : this.movie.name,
         id: this.movie.id,
@@ -74,6 +103,7 @@ export default {
           : this.movie.first_air_date,
         vote_average: this.movie.vote_average,
         vote_count: this.movie.vote_count,
+        type: this.movie.title ? "movie" : "tv",
       };
       axios
         .post(`/api/watch_list/${this.movie.id}`, {
@@ -81,23 +111,27 @@ export default {
           watched: watchedState,
         })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
+          this.$emit("fetch");
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         });
     },
     removeFromWatchList() {
+      //console.log("removing from watch list");
       axios
         .post(`/api/watch_list/delete/${this.movie.id}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
+          this.$emit("fetch");
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         });
     },
     addToFavorites() {
+      //console.log("adding to favs");
       let addedMovie = {
         title: this.movie.title ? this.movie.title : this.movie.name,
         id: this.movie.id,
@@ -108,26 +142,30 @@ export default {
           : this.movie.first_air_date,
         vote_average: this.movie.vote_average,
         vote_count: this.movie.vote_count,
+        type: this.movie.title ? "movie" : "tv",
       };
       axios
         .post(`/api/favorites/${this.movie.id}`, {
           movie: addedMovie,
         })
         .then((res) => {
-          console.log(res);
+          //console.log(res);
+          this.$emit("fetch");
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         });
     },
     removeFromFavorites() {
+      //console.log("removing from favs");
       axios
-        .post(`/api/watch_list/delete/${this.movie.id}`)
+        .post(`/api/favorites/delete/${this.movie.id}`)
         .then((res) => {
-          console.log(res);
+          //console.log(res);
+          this.$emit("fetch");
         })
         .catch((err) => {
-          console.log(err);
+          //console.log(err);
         });
     },
   },
@@ -146,9 +184,10 @@ export default {
       font-size: 50px;
       position: relative;
       top: -15px;
-      i.fa-star {
+      i.fa-star,
+      i.fa-star-o {
         position: absolute;
-        top: 0;
+        top: 5px;
         font-size: 30px;
         color: var(--golden);
         opacity: 1;
@@ -160,7 +199,12 @@ export default {
       }
     }
   }
-
+  // .far.fa-star::before{
+  //   content: "\f005";
+  // }
+  // .fas.fa-star::before{
+  //   content: "\f005";
+  // }
   .fa-clock {
     color: var(--golden);
   }

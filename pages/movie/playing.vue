@@ -1,5 +1,5 @@
 <template>
-  <movie-list :movies="movies" />
+  <movie-list :movies="movies" :previewType="'movie'" />
 </template>
 
 <script>
@@ -19,8 +19,11 @@ export default {
         this.movies = [...res.data.results];
       })
       .catch((err) => {
-        console.log("Error: " + err);
+        //console.log("Error: " + err);
       });
+  },
+  mounted() {
+    this.$fetch();
   },
 };
 </script>

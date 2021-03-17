@@ -22,7 +22,10 @@
             <b-nav-item-dropdown no-caret>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <span>Movie</span>
+                <span>
+                  <i class="fas fa-film"></i>
+                  Movie</span
+                >
               </template>
               <nuxt-link tag="b-dropdown-item" to="/movie/popular">
                 Most Popular
@@ -40,7 +43,7 @@
             <b-nav-item-dropdown no-caret>
               <!-- Using 'button-content' slot -->
               <template #button-content>
-                <span>Tv Series</span>
+                <span> <i class="fas fa-tv"></i> Tv Series </span>
               </template>
               <nuxt-link tag="b-dropdown-item" to="/shows/popular">
                 Most Popular
@@ -81,12 +84,16 @@
                 <i class="fas fa-user-circle"></i>
                 <span>User</span>
               </template>
-              <nuxt-link tag="b-dropdown-item" to="/profile">
+              <!-- <nuxt-link tag="b-dropdown-item" to="/profile">
                 Profile
-              </nuxt-link>
+              </nuxt-link> -->
               <nuxt-link tag="b-dropdown-item" to="/watch-list">
                 <i class="fas fa-bookmark"></i>
                 watchList
+              </nuxt-link>
+              <nuxt-link tag="b-dropdown-item" to="/watched">
+                <i class="fa fa-calendar-check-o"></i>
+                Watched
               </nuxt-link>
               <nuxt-link tag="b-dropdown-item" to="/favorites">
                 <i class="fas fa-star"></i>

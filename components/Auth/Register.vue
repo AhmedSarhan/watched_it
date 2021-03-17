@@ -122,12 +122,9 @@
           {{ errors.confirmPassword }}
         </small>
       </b-form-group>
-      <b-button
-        type="submit"
-        class="d-block mx-auto py-2 px-5"
-        variant="primary"
-        >Sign up</b-button
-      >
+      <button type="submit" class="d-block mx-auto py-2 px-5 btn btn-golden">
+        Sign up
+      </button>
       <caption class="text-center text-danger" v-if="register_error">
         {{
           register_error
@@ -178,9 +175,9 @@ export default {
         lastName: null,
         confirmPassword: null,
       };
-      console.log(this.user);
+      //console.log(this.user);
       if (!this.validateForm()) {
-        console.log("that didn't work");
+        //console.log("that didn't work");
         return;
       }
       this.$axios
@@ -200,7 +197,7 @@ export default {
           this.errors.email = err.response?.data?.errors?.email?.msg;
           this.errors.password = err.response?.data?.errors?.password?.msg;
           this.errors.username = err.response?.data?.errors?.username?.msg;
-          console.log(this.errors);
+          //console.log(this.errors);
         });
       // this.onReset();
     },

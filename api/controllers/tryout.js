@@ -16,7 +16,7 @@ module.exports.register = [
       },
     }).then((user) => {
       if (user) {
-        console.log('user is there already');
+        //console.log('user is there already');
         res.status(420).json({
           message: 'User Already Exists, try different data',
         });
@@ -130,7 +130,7 @@ module.exports.user = function (req, res) {
       if (err) {
         return res.status(401).json({ message: 'Unauthorized' });
       } else {
-        console.log('decoded', decoded);
+        //console.log('decoded', decoded);
         return res.json({ user: decoded });
       }
     });
