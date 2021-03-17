@@ -28,11 +28,20 @@ module.exports = {
   buildModules: ['@nuxtjs/color-mode'],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
+  env: {
+    baseUrl:
+      process.env.VERCEL_URL ||
+      'http://127.0.0.1:3000' ||
+      'http://localhost:3000',
+  },
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    {
+      baseUrl: process.env.baseUrl,
+    },
     '@nuxtjs/auth',
   ],
   serverMiddleware: ['~/api/index.js'],
