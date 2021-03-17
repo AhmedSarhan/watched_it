@@ -39,6 +39,9 @@ module.exports = {
   ],
   serverMiddleware: ['~/api/index.js'],
 
+  env: {
+    basUrl: 'https://watched-it-25.herokuapp.com/',
+  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
     baseUrl: process.env.baseUrl || 'http://localhost:3000',

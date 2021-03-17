@@ -12,24 +12,14 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.12.2",
     "axios": "^0.21.1",
-    "bcryptjs": "^2.4.3",
     "bootstrap": "^4.5.2",
     "bootstrap-vue": "^2.17.3",
-    "cookie-parser": "^1.4.5",
     "core-js": "^3.6.5",
-    "cross-env": "^7.0.3",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
-    "express-validator": "^6.10.0",
-    "jsonwebtoken": "^8.5.1",
-    "mysql2": "^2.2.5",
     "nuxt": "^2.14.6",
-    "sequelize": "^6.5.0",
     "vue-slick-carousel": "^1.0.6"
   },
   "devDependencies": {
     "@nuxtjs/color-mode": "^2.0.5",
-    "nodemon": "^2.0.7",
     "sass": "^1.32.8",
     "sass-loader": "^10.1.1"
   }
