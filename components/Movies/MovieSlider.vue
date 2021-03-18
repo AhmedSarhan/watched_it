@@ -59,6 +59,7 @@ export default {
   data() {
     return {
       latestMovies: [],
+      loadingMovies: [],
     };
   },
   props: ["movies", "previewType"],
@@ -76,7 +77,7 @@ export default {
       .then((res) => {
         if (res?.data?.movies) {
           let watched = [...res.data.movies];
-          this.latestMovies = this.movies.map((movie) => {
+          this.loadingMovies = this.movies.map((movie) => {
             let index = watched.findIndex((mov) => mov.id === movie.id);
             if (index > -1) {
               return { ...movie, watched: true, watchList: true };
@@ -84,7 +85,7 @@ export default {
             return { ...movie, watched: false, watchList: false };
           });
         } else {
-          this.latestMovies = [...this.movies];
+          this.loadingMovies = [...this.movies];
           return;
         }
         //console.log("movies", this.latestMovies);
@@ -103,7 +104,7 @@ export default {
         if (res?.data?.movies) {
           let watchList = [...res.data.movies];
 
-          this.latestMovies = this.latestMovies.map((movie) => {
+          this.loadingMovies = this.loadingMovies.map((movie) => {
             let index = watchList.findIndex((mov) => mov.id === movie.id);
             if (index > -1) {
               return { ...movie, watched: false, watchList: true };
@@ -111,7 +112,7 @@ export default {
             return { ...movie };
           });
         } else {
-          this.latestMovies = [...this.latestMovies];
+          this.loadingMovies = [...this.loadingMovies];
           return;
         }
         //console.log("movies", this.latestMovies);
@@ -126,7 +127,7 @@ export default {
       .then((res) => {
         if (res?.data?.movies) {
           let favs = [...res.data.movies];
-          this.latestMovies = this.latestMovies.map((movie) => {
+          this.latestMovies = this.loadingMovies.map((movie) => {
             let index = favs.findIndex((mov) => mov.id === movie.id);
             if (index > -1) {
               return { ...movie, favorite: true };
@@ -134,7 +135,7 @@ export default {
             return { ...movie, favorite: false };
           });
         } else {
-          this.latestMovies = [...this.latestMovies];
+          this.latestMovies = [...this.loadingMovies];
           return;
         }
         //console.log("movies", this.latestMovies);
