@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <p v-if="$fetchState.pending">Fetching posts...</p>
-    <p v-else-if="$fetchState.error">Error while fetching posts</p>
+    <p v-if="$fetchState.pending">Fetching movies...</p>
+    <p v-else-if="$fetchState.error">Error while Fetching movies</p>
 
     <div class="row" v-else>
       <div class="col-md-4 my-3" v-for="movie in latestMovies" :key="movie.id">

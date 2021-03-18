@@ -22,7 +22,7 @@ const Movie = sequelize.define('movie', {
     allowNull: false,
   },
   release_date: {
-    type: Sequelize.DATE,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   vote_average: {
