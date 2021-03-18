@@ -75,6 +75,7 @@ export default {
       this.$fetch();
     },
     async reFetchHandler() {
+      this.movies = [];
       await this.$fetch();
     },
   },
