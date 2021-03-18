@@ -137,14 +137,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 700px) {
+@media screen and (max-width: 920px) {
   .ml-auto {
     margin-left: 0 !important;
   }
-}
-.dropdown-menu.show {
-  width: auto !important;
-  min-width: 100px !important;
-  max-width: 300px !important;
 }
 </style>

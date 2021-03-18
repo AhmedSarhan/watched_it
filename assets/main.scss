@@ -155,3 +155,9 @@ i.fa-clock {
     font-size: 18px;
 
 }
+
+.dropdown-menu.show {
+    width: auto !important;
+    min-width: 100px !important;
+    max-width: 300px !important;
+}
