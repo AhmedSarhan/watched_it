@@ -6,9 +6,13 @@ const { Sequelize } = require('sequelize');
 //   host: 'localhost',
 // });
 // hosted db
-const sequelize = new Sequelize('sql11398640', 'sql11398640', 'a2r9Jju7fU', {
-  dialect: 'mysql',
-  host: 'sql11.freemysqlhosting.net',
-});
-
+const sequelize = new Sequelize(
+  this.$config.db_name,
+  this.$config.db_user,
+  this.$config.db_pass,
+  {
+    dialect: 'mysql',
+    host: this.$config.db_server,
+  }
+);
 module.exports = sequelize;

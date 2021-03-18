@@ -67,7 +67,7 @@ export default {
             return { ...movie };
           });
         } else {
-          this.latestMovies = [...this.movies];
+          this.latestMovies = [...this.latestMovies];
           return;
         }
         //console.log("movies", this.latestMovies);
@@ -90,7 +90,7 @@ export default {
             return { ...movie, favorite: false };
           });
         } else {
-          this.latestMovies = [...this.movies];
+          this.latestMovies = [...this.latestMovies];
           return;
         }
         //console.log("movies", this.latestMovies);
