@@ -1,52 +1,56 @@
 <template>
-  <div v-if="latestMovies.length">
-    <VueSlickCarousel
-      ref="c1"
-      :focusOnSelect="false"
-      :accessibility="true"
-      :touchMove="true"
-      :arrows="true"
-      class="big-slider"
-      :slidesToShow="4"
-      :speed="500"
-      :autoplay="true"
-      :slidesToScroll="2"
-      :autoplaySpeed="2500"
-      :responsive="[
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 2,
-            infinite: true,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            initialSlide: 2,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            dots: false,
-            arrows: false,
-          },
-        },
-      ]"
-    >
-      <div v-for="movie in latestMovies" :key="movie.id" class="app-slider">
-        <movie-card :movie="movie" @fetch="refetchHandler" />
+  <client-only>
+    <div>
+      <div v-if="latestMovies.length">
+        <VueSlickCarousel
+          ref="c1"
+          :focusOnSelect="false"
+          :accessibility="true"
+          :touchMove="true"
+          :arrows="true"
+          class="big-slider"
+          :slidesToShow="4"
+          :speed="500"
+          :autoplay="true"
+          :slidesToScroll="2"
+          :autoplaySpeed="2500"
+          :responsive="[
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 2,
+                infinite: true,
+                dots: false,
+              },
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2,
+                dots: false,
+              },
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: false,
+                arrows: false,
+              },
+            },
+          ]"
+        >
+          <div v-for="movie in latestMovies" :key="movie.id" class="app-slider">
+            <movie-card :movie="movie" @fetch="refetchHandler" />
+          </div>
+        </VueSlickCarousel>
       </div>
-    </VueSlickCarousel>
-  </div>
+    </div>
+  </client-only>
 </template>
 
 <script>
