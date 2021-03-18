@@ -52,10 +52,10 @@ sequelize
   // .sync({ force: true })
   .sync()
   .then(() => {
-    //console.log('up and running');
+    console.log('up and running');
   })
   .catch((err) => {
-    //console.log('Error: ' + err);
+    console.log('Error: ' + err);
   });
 
 // Export the server middleware
