@@ -90,6 +90,7 @@ export default {
         //console.log("movies", this.latestMovies);
       })
       .catch((err) => {
+        this.latestMovies = [...this.movies];
         //console.log(err);
       });
     await this.$axios

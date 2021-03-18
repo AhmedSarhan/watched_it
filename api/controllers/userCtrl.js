@@ -88,7 +88,7 @@ module.exports.login = [
         errors: errors.mapped(),
       });
     }
-
+    console.log('shit is running in the backend');
     // check if user already exists or not
     User.findOne({ where: { email: req.body.email } })
       .then((user) => {

@@ -81,6 +81,7 @@ export default {
   },
   methods: {
     onSubmit() {
+      console.log("shit is running on the client aghhh fuck");
       this.$auth
         .loginWith("local", {
           data: {

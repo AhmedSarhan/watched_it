@@ -12,7 +12,7 @@ exports.getWatchList = (req, res, next) => {
   return User.findByPk(current_user_id)
     .then((user) => {
       current_user = user;
-      return user.getWatch_list({ where: { id: 1 } });
+      return user.getWatch_list();
     })
     .then((watchlist) => {
       return watchlist;
@@ -147,7 +147,7 @@ exports.getFavorites = (req, res, next) => {
   return User.findByPk(current_user_id)
     .then((user) => {
       current_user = user;
-      return user.getFavorite({ where: { id: 1 } });
+      return user.getFavorite();
     })
     .then((favorite) => {
       if (!favsType) {
