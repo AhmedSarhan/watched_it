@@ -43,10 +43,10 @@ module.exports = {
     baseUrl: 'https://watched-it-client.herokuapp.com/',
   },
   privateRuntimeConfig: {
-    db_server: '${DB_SERVER}',
-    db_name: '${DB_NAME}',
-    db_user: '${DB_USER}',
-    db_pass: '${DB_PASS}',
+    db_server: process.env.DB_SERVER,
+    db_name: process.env.DB_NAME,
+    db_user: process.env.DB_USER,
+    db_pass: process.env.DB_PASS,
   },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {},
