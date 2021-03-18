@@ -137,7 +137,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@media screen and (max-width: 920px) {
+@media screen and (max-width: 991px) {
   .ml-auto {
     margin-left: 0 !important;
   }

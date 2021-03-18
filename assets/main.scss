@@ -161,3 +161,18 @@ i.fa-clock {
     min-width: 100px !important;
     max-width: 300px !important;
 }
+
+.input-group-append {
+    display: flex;
+    align-items: center;
+    background: var(--border-secondary);
+    color: black;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 10%;
+    justify-content: center;
+
+    i {
+        cursor: pointer;
+    }
+}
