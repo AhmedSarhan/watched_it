@@ -1,12 +1,17 @@
 const express = require('express');
 const sequelize = require('./utils/db');
 const session = require('express-session');
+var cors = require('cors');
 const User = require('./models/user');
 const Favorites = require('./models/favorites');
 const FavoritesItem = require('./models/favorites-item');
 const Movie = require('./models/movie');
 const WatchList = require('./models/watchList');
 const WatchListItem = require('./models/watchList-item');
+
+// Require & Import API routes
+const users = require('./routes/users');
+const movies = require('./routes/movies');
 
 // Create express instnace
 const app = express();
@@ -15,10 +20,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Require & Import API routes
-const users = require('./routes/users');
-const movies = require('./routes/movies');
-
+app.use(cors());
+app.options('*', cors());
 app.use(
   session({
     secret: 'application_secret',

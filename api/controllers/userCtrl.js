@@ -116,7 +116,8 @@ module.exports.login = [
                 {
                   ...loadedUser,
                 },
-                config.authSecret
+                config.authSecret,
+                { expiresIn: '1h' }
               ),
             });
           } else {
