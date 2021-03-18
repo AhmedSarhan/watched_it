@@ -40,7 +40,7 @@ module.exports = {
 
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseUrl: process.env.baseUrl || 'https://localhost:3000',
+    baseUrl: 'https://watched-it-client.herokuapp.com/',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
