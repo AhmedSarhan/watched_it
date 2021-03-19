@@ -96,6 +96,11 @@ export default {
       })
       .catch((err) => {
         //console.log(err);
+        const code = parseInt(err.response && err.response.status);
+        if (code === 400) {
+          this.$auth.logout();
+          this.$router.push("/auth");
+        }
       });
     await this.$axios
       .get("/api/watch_list", {
@@ -123,6 +128,11 @@ export default {
       })
       .catch((err) => {
         //console.log(err);
+        const code = parseInt(err.response && err.response.status);
+        if (code === 400) {
+          this.$auth.logout();
+          this.$router.push("/auth");
+        }
       });
     await this.$axios
       .get("/api/favorites", {
@@ -146,6 +156,11 @@ export default {
       })
       .catch((err) => {
         //console.log(err);
+        const code = parseInt(err.response && err.response.status);
+        if (code === 400) {
+          this.$auth.logout();
+          this.$router.push("/auth");
+        }
       });
   },
   mounted() {

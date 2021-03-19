@@ -82,9 +82,7 @@
               <!-- Using 'button-content' slot -->
               <template #button-content>
                 <i class="fas fa-user-circle"></i>
-                <span>{{
-                  this.$auth.loggedIn ? this.$auth.user.username : "User"
-                }}</span>
+                <span>{{ $auth.loggedIn ? $auth.user.username : "User" }}</span>
               </template>
               <!-- <nuxt-link tag="b-dropdown-item" to="/profile">
                 Profile

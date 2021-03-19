@@ -68,7 +68,7 @@ module.exports = {
         },
         tokenRequired: true,
         tokenType: 'Bearer',
-        resetOnError: true,
+        // resetOnError: true,
       },
     },
     redirect: {
