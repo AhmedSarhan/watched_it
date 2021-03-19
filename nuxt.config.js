@@ -5,9 +5,14 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'title', name: 'title', content: 'Watched it' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'a movies web app with all the latest movies and tv shows, you will find any movie at our website',
+      },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
       {
         src: 'https://use.fontawesome.com/bf14e03edb.js',
@@ -68,7 +73,6 @@ module.exports = {
         },
         tokenRequired: true,
         tokenType: 'Bearer',
-        // resetOnError: true,
       },
     },
     redirect: {
@@ -77,5 +81,6 @@ module.exports = {
       home: '/', // User will be redirect to this path after login if accessed login page directly
     },
     rewriteRedirects: true,
+    // resetOnError: true,
   },
 };
