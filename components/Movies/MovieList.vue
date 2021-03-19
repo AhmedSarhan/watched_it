@@ -45,11 +45,11 @@ export default {
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
-        const code = parseInt(err.response && err.response.status);
-        if (code === 400) {
-          this.$auth.logout();
+
+        if (err.response && err.response.status === 400) {
+          await this.$auth.logout();
           this.$router.push("/auth");
         }
       });
@@ -77,11 +77,11 @@ export default {
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
-        const code = parseInt(err.response && err.response.status);
-        if (code === 400) {
-          this.$auth.logout();
+
+        if (err.response && err.response.status === 400) {
+          await this.$auth.logout();
           this.$router.push("/auth");
         }
       });
@@ -105,11 +105,11 @@ export default {
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
-        const code = parseInt(err.response && err.response.status);
-        if (code === 400) {
-          this.$auth.logout();
+
+        if (err.response && err.response.status === 400) {
+          await this.$auth.logout();
           this.$router.push("/auth");
         }
       });
