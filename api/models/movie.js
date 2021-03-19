@@ -19,19 +19,23 @@ const Movie = sequelize.define('movie', {
   },
   poster_path: {
     type: Sequelize.TEXT,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null,
   },
   release_date: {
     type: Sequelize.STRING,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null,
   },
   vote_average: {
     type: Sequelize.DOUBLE,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null,
   },
   vote_count: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: true,
+    defaultValue: null,
   },
   type: {
     type: Sequelize.STRING,
