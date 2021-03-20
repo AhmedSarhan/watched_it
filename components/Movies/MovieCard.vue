@@ -105,7 +105,7 @@ export default {
         vote_count: this.movie.vote_count,
         type: this.movie.title ? "movie" : "tv",
       };
-      axios
+      this.$axios
         .post(`/watch_list/${this.movie.id}`, {
           movie: addedMovie,
           watched: watchedState,
@@ -120,7 +120,7 @@ export default {
     },
     removeFromWatchList() {
       //console.log("removing from watch list");
-      axios
+      this.$axios
         .post(`/watch_list/delete/${this.movie.id}`)
         .then((res) => {
           //console.log(res);
@@ -144,7 +144,7 @@ export default {
         vote_count: this.movie.vote_count,
         type: this.movie.title ? "movie" : "tv",
       };
-      axios
+      this.$axios
         .post(`/favorites/${this.movie.id}`, {
           movie: addedMovie,
         })
@@ -158,7 +158,7 @@ export default {
     },
     removeFromFavorites() {
       //console.log("removing from favs");
-      axios
+      this.$axios
         .post(`/favorites/delete/${this.movie.id}`)
         .then((res) => {
           //console.log(res);
