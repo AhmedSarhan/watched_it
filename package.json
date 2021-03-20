@@ -1,0 +1,19 @@
+{
+  "name": "watched-it",
+  "version": "1.0.0",
+  "description": "a movie application with all the latest movies",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AhmedSarhan/watched_it.git"
+  },
+  "author": "ahmed sarhan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AhmedSarhan/watched_it/issues"
+  },
+  "homepage": "https://github.com/AhmedSarhan/watched_it#readme"
+}
