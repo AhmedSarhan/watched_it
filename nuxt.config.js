@@ -5,7 +5,13 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'title', name: 'title', content: 'Watched it' },
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          'a movies web app with all the latest movies and tv shows, you will find any movie at our website',
+      },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
@@ -39,12 +45,9 @@ module.exports = {
   ],
   serverMiddleware: ['~/api/index.js'],
 
-  env: {
-    basUrl: 'https://watched-it-25.herokuapp.com/',
-  },
   // Axios module configuration (https://go.nuxtjs.dev/config-axios)
   axios: {
-    baseUrl: process.env.baseUrl || 'http://localhost:3000',
+    baseUrl: 'https://watched-it-25.herokuapp.com/',
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)

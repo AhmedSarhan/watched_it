@@ -19,6 +19,7 @@
           type="email"
           placeholder="Enter your email"
           required
+          name="email"
         ></b-form-input>
         <small class="text-danger text-center" v-if="errors && errors.email">
           {{ errors.email }}
@@ -31,13 +32,33 @@
         label="Your password:"
         label-for="input-2"
       >
-        <b-form-input
-          id="input-2"
-          v-model="user.password"
-          type="password"
-          placeholder="Enter your password"
-          required
-        ></b-form-input>
+        <b-input-group>
+          <b-form-input
+            id="input-2"
+            v-model="user.password"
+            :class="
+              'border ' + errors && errors.password ? 'border-danger ' : ' '
+            "
+            :type="passType"
+            placeholder="Enter your password"
+            required
+            name="password"
+          ></b-form-input>
+          <b-input-group-append>
+            <i
+              class="fa fa-eye"
+              aria-hidden="true"
+              v-if="passType === 'password'"
+              @click="changePassTypeHandler('text')"
+            ></i>
+            <i
+              class="fa fa-eye-slash"
+              aria-hidden="true"
+              @click="changePassTypeHandler('password')"
+              v-else
+            ></i>
+          </b-input-group-append>
+        </b-input-group>
         <small class="text-danger text-center" v-if="errors && errors.password">
           {{ errors.password }}
         </small>
@@ -77,6 +98,7 @@ export default {
         email: "",
         password: "",
       },
+      passType: "password",
     };
   },
   methods: {
@@ -103,7 +125,11 @@ export default {
       // Reset our form values
       this.user.email = "";
       this.user.password = "";
+      this.passType = "password";
       // Trick to reset/clear native browser form validation state
+    },
+    changePassTypeHandler(type) {
+      this.passType = type;
     },
     changeToRegisterHandler() {
       this.$emit("register");

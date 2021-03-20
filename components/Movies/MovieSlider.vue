@@ -1,52 +1,56 @@
 <template>
-  <div v-if="latestMovies.length">
-    <VueSlickCarousel
-      ref="c1"
-      :focusOnSelect="false"
-      :accessibility="true"
-      :touchMove="true"
-      :arrows="true"
-      class="big-slider"
-      :slidesToShow="4"
-      :speed="500"
-      :autoplay="true"
-      :slidesToScroll="2"
-      :autoplaySpeed="2500"
-      :responsive="[
-        {
-          breakpoint: 1024,
-          settings: {
-            slidesToShow: 3,
-            slidesToScroll: 2,
-            infinite: true,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 600,
-          settings: {
-            slidesToShow: 2,
-            slidesToScroll: 2,
-            initialSlide: 2,
-            dots: false,
-          },
-        },
-        {
-          breakpoint: 480,
-          settings: {
-            slidesToShow: 1,
-            slidesToScroll: 1,
-            dots: false,
-            arrows: false,
-          },
-        },
-      ]"
-    >
-      <div v-for="movie in latestMovies" :key="movie.id" class="app-slider">
-        <movie-card :movie="movie" @fetch="refetchHandler" />
+  <client-only>
+    <div>
+      <div v-if="latestMovies.length">
+        <VueSlickCarousel
+          ref="c1"
+          :focusOnSelect="false"
+          :accessibility="true"
+          :touchMove="true"
+          :arrows="true"
+          class="big-slider"
+          :slidesToShow="4"
+          :speed="500"
+          :autoplay="true"
+          :slidesToScroll="2"
+          :autoplaySpeed="2500"
+          :responsive="[
+            {
+              breakpoint: 1024,
+              settings: {
+                slidesToShow: 3,
+                slidesToScroll: 2,
+                infinite: true,
+                dots: false,
+              },
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                initialSlide: 2,
+                dots: false,
+              },
+            },
+            {
+              breakpoint: 480,
+              settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+                dots: false,
+                arrows: false,
+              },
+            },
+          ]"
+        >
+          <div v-for="movie in latestMovies" :key="movie.id" class="app-slider">
+            <movie-card :movie="movie" @fetch="refetchHandler" />
+          </div>
+        </VueSlickCarousel>
       </div>
-    </VueSlickCarousel>
-  </div>
+    </div>
+  </client-only>
 </template>
 
 <script>
@@ -59,6 +63,7 @@ export default {
   data() {
     return {
       latestMovies: [],
+      loadingMovies: [],
     };
   },
   props: ["movies", "previewType"],
@@ -76,7 +81,7 @@ export default {
       .then((res) => {
         if (res?.data?.movies) {
           let watched = [...res.data.movies];
-          this.latestMovies = this.movies.map((movie) => {
+          this.loadingMovies = this.movies.map((movie) => {
             let index = watched.findIndex((mov) => mov.id === movie.id);
             if (index > -1) {
               return { ...movie, watched: true, watchList: true };
@@ -84,13 +89,14 @@ export default {
             return { ...movie, watched: false, watchList: false };
           });
         } else {
-          this.latestMovies = [...this.movies];
-          return;
+          this.loadingMovies = [...this.movies];
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
+        await this.$auth.logout();
+        this.$router.push("/auth");
       });
     await this.$axios
       .get("/api/watch_list", {
@@ -103,7 +109,7 @@ export default {
         if (res?.data?.movies) {
           let watchList = [...res.data.movies];
 
-          this.latestMovies = this.latestMovies.map((movie) => {
+          this.loadingMovies = this.loadingMovies.map((movie) => {
             let index = watchList.findIndex((mov) => mov.id === movie.id);
             if (index > -1) {
               return { ...movie, watched: false, watchList: true };
@@ -111,13 +117,14 @@ export default {
             return { ...movie };
           });
         } else {
-          this.latestMovies = [...this.movies];
-          return;
+          this.loadingMovies = [...this.loadingMovies];
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
+        await this.$auth.logout();
+        this.$router.push("/auth");
       });
     await this.$axios
       .get("/api/favorites", {
@@ -126,7 +133,7 @@ export default {
       .then((res) => {
         if (res?.data?.movies) {
           let favs = [...res.data.movies];
-          this.latestMovies = this.latestMovies.map((movie) => {
+          this.latestMovies = this.loadingMovies.map((movie) => {
             let index = favs.findIndex((mov) => mov.id === movie.id);
             if (index > -1) {
               return { ...movie, favorite: true };
@@ -134,13 +141,14 @@ export default {
             return { ...movie, favorite: false };
           });
         } else {
-          this.latestMovies = [...this.movies];
-          return;
+          this.latestMovies = [...this.loadingMovies];
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
+        await this.$auth.logout();
+        this.$router.push("/auth");
       });
   },
   mounted() {

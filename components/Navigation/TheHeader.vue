@@ -82,7 +82,7 @@
               <!-- Using 'button-content' slot -->
               <template #button-content>
                 <i class="fas fa-user-circle"></i>
-                <span>User</span>
+                <span>{{ $auth.loggedIn ? $auth.user.username : "User" }}</span>
               </template>
               <!-- <nuxt-link tag="b-dropdown-item" to="/profile">
                 Profile
@@ -136,5 +136,10 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+@media screen and (max-width: 991px) {
+  .ml-auto {
+    margin-left: 0 !important;
+  }
+}
 </style>

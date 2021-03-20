@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <p v-if="$fetchState.pending">Fetching posts...</p>
-    <p v-else-if="$fetchState.error">Error while fetching posts</p>
+    <p v-if="$fetchState.pending">Fetching movies...</p>
+    <p v-else-if="$fetchState.error">Error while fetching movies</p>
 
     <div class="row" v-else>
       <div class="col-md-4 my-3" v-for="movie in latestMovies" :key="movie.id">
@@ -41,12 +41,13 @@ export default {
           });
         } else {
           this.latestMovies = [...this.movies];
-          return;
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
+        await this.$auth.logout();
+        this.$router.push("/auth");
       });
     await this.$axios
       .get("/api/watch_list", {
@@ -67,13 +68,14 @@ export default {
             return { ...movie };
           });
         } else {
-          this.latestMovies = [...this.movies];
-          return;
+          this.latestMovies = [...this.latestMovies];
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
+        await this.$auth.logout();
+        this.$router.push("/auth");
       });
     await this.$axios
       .get("/api/favorites", {
@@ -90,13 +92,14 @@ export default {
             return { ...movie, favorite: false };
           });
         } else {
-          this.latestMovies = [...this.movies];
-          return;
+          this.latestMovies = [...this.latestMovies];
         }
         //console.log("movies", this.latestMovies);
       })
-      .catch((err) => {
+      .catch(async (err) => {
         //console.log(err);
+        await this.$auth.logout();
+        this.$router.push("/auth");
       });
   },
   mounted() {

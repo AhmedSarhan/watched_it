@@ -13,17 +13,18 @@
             class="my-3"
             id="input-group-1"
             label="First Name:"
-            label-for="input-1"
+            label-for="firstname"
           >
             <b-form-input
               :class="
                 'border ' + errors && errors.username ? 'border-danger ' : ' '
               "
-              id="input-1"
+              id="firstname"
               v-model="user.firstName"
               type="text"
               placeholder="Enter your First Name"
               required
+              name="firstname"
             ></b-form-input>
             <small
               class="text-danger text-center"
@@ -38,15 +39,16 @@
             class="my-3"
             id="input-group-2"
             label="Last Name:"
-            label-for="input-2"
+            label-for="lastname"
           >
             <b-form-input
               :class="
                 'border ' + errors && errors.username ? 'border-danger ' : ' '
               "
-              id="input-2"
+              id="lastname"
               v-model="user.lastName"
               type="text"
+              name="lastname"
               placeholder="Enter your Last Name"
               required
             ></b-form-input>
@@ -63,15 +65,16 @@
         class="my-3"
         id="input-group-3"
         label="Email address:"
-        label-for="input-3"
+        label-for="email"
       >
         <b-form-input
           :class="'border ' + errors && errors.email ? 'border-danger ' : ' '"
-          id="input-3"
+          id="email"
           v-model="user.email"
           type="text"
           placeholder="Enter your email"
           required
+          name="email"
         ></b-form-input>
         <small class="text-danger text-center" v-if="errors && errors.email">
           {{ errors.email }}
@@ -81,18 +84,35 @@
         class="my-3"
         id="input-group-4"
         label="Your password:"
-        label-for="input-4"
+        label-for="password"
       >
-        <b-form-input
-          :class="
-            'border ' + errors && errors.password ? 'border-danger ' : ' '
-          "
-          id="input-4"
-          v-model="user.password"
-          type="password"
-          placeholder="Enter your password"
-          required
-        ></b-form-input>
+        <b-input-group>
+          <b-form-input
+            id="password"
+            v-model="user.password"
+            :class="
+              'border ' + errors && errors.password ? 'border-danger ' : ' '
+            "
+            :type="passType"
+            placeholder="Enter your password"
+            required
+            name="password"
+          ></b-form-input>
+          <b-input-group-append>
+            <i
+              class="fa fa-eye"
+              aria-hidden="true"
+              v-if="passType === 'password'"
+              @click="changePassTypeHandler('text')"
+            ></i>
+            <i
+              class="fa fa-eye-slash"
+              aria-hidden="true"
+              @click="changePassTypeHandler('password')"
+              v-else
+            ></i>
+          </b-input-group-append>
+        </b-input-group>
         <small class="text-danger text-center" v-if="errors && errors.password">
           {{ errors.password }}
         </small>
@@ -101,20 +121,37 @@
         class="my-3"
         id="input-group-5"
         label="Confirm Password:"
-        label-for="input-5"
+        label-for="confirmPassword"
       >
-        <b-form-input
-          :class="
-            'border ' + errors && errors.confirmPassword
-              ? 'border-danger '
-              : ' '
-          "
-          id="input-5"
-          v-model="user.confirmPassword"
-          type="password"
-          placeholder="Enter your password one more time"
-          required
-        ></b-form-input>
+        <b-input-group>
+          <b-form-input
+            :class="
+              'border ' + errors && errors.confirmPassword
+                ? 'border-danger '
+                : ' '
+            "
+            id="confirmPassword"
+            name="confirmPassword"
+            v-model="user.confirmPassword"
+            :type="confirmPassType"
+            placeholder="Enter your password one more time"
+            required
+          ></b-form-input>
+          <b-input-group-append>
+            <i
+              class="fa fa-eye"
+              aria-hidden="true"
+              v-if="confirmPassType === 'password'"
+              @click="changeConfirmPassTypeHandler('text')"
+            ></i>
+            <i
+              class="fa fa-eye-slash"
+              aria-hidden="true"
+              @click="changeConfirmPassTypeHandler('password')"
+              v-else
+            ></i>
+          </b-input-group-append>
+        </b-input-group>
         <small
           class="text-danger text-center"
           v-if="errors && errors.confirmPassword"
@@ -164,6 +201,8 @@ export default {
         confirmPassword: null,
       },
       register_error: null,
+      confirmPassType: "password",
+      passType: "password",
     };
   },
   methods: {
@@ -175,6 +214,7 @@ export default {
         lastName: null,
         confirmPassword: null,
       };
+
       //console.log(this.user);
       if (!this.validateForm()) {
         //console.log("that didn't work");
@@ -218,7 +258,15 @@ export default {
         lastName: null,
         confirmPassword: null,
       };
+      this.passType = "password";
+      this.confirmPassType = "password";
       // Trick to reset/clear native browser form validation state
+    },
+    changePassTypeHandler(type) {
+      this.passType = type;
+    },
+    changeConfirmPassTypeHandler(type) {
+      this.confirmPassType = type;
     },
     changeToLoginHandler() {
       this.$emit("login");
