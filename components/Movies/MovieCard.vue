@@ -74,7 +74,7 @@ export default {
   // async fetch() {
   //   // get all the user watchlist, favorites, start comparing and set the different ui variables accordingly
   //   await axios
-  //     .get(`/api/favorites/${this.movie.id}`)
+  //     .get(`/favorites/${this.movie.id}`)
   //     .then((res) => {
   //       //console.log(res);
   //     })
@@ -82,7 +82,7 @@ export default {
   //       //console.log(err);
   //     });
   //   await axios
-  //     .get(`/api/watch_list/${this.movie.id}`)
+  //     .get(`/watch_list/${this.movie.id}`)
   //     .then((res) => {
   //       //console.log(res);
   //     })
@@ -106,7 +106,7 @@ export default {
         type: this.movie.title ? "movie" : "tv",
       };
       axios
-        .post(`/api/watch_list/${this.movie.id}`, {
+        .post(`/watch_list/${this.movie.id}`, {
           movie: addedMovie,
           watched: watchedState,
         })
@@ -121,7 +121,7 @@ export default {
     removeFromWatchList() {
       //console.log("removing from watch list");
       axios
-        .post(`/api/watch_list/delete/${this.movie.id}`)
+        .post(`/watch_list/delete/${this.movie.id}`)
         .then((res) => {
           //console.log(res);
           this.$emit("fetch");
@@ -145,7 +145,7 @@ export default {
         type: this.movie.title ? "movie" : "tv",
       };
       axios
-        .post(`/api/favorites/${this.movie.id}`, {
+        .post(`/favorites/${this.movie.id}`, {
           movie: addedMovie,
         })
         .then((res) => {
@@ -159,7 +159,7 @@ export default {
     removeFromFavorites() {
       //console.log("removing from favs");
       axios
-        .post(`/api/favorites/delete/${this.movie.id}`)
+        .post(`/favorites/delete/${this.movie.id}`)
         .then((res) => {
           //console.log(res);
           this.$emit("fetch");

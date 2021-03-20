@@ -57,13 +57,13 @@ module.exports = {
       local: {
         endpoints: {
           login: {
-            url: '/api/users/login',
+            url: '/users/login',
             method: 'post',
             propertyName: 'token',
           },
           logout: true,
           user: {
-            url: '/api/users/user',
+            url: '/users/user',
             method: 'get',
             propertyName: 'user',
           },

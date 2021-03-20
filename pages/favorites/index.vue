@@ -52,7 +52,7 @@ export default {
   },
   async fetch() {
     await axios
-      .get("/api/favorites", {
+      .get("/favorites", {
         params: { type: this.previewType },
       })
       .then((res) => {

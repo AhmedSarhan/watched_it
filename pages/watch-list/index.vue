@@ -52,7 +52,7 @@ export default {
   },
   async fetch() {
     await axios
-      .get("/api/watch_list", {
+      .get("/watch_list", {
         params: {
           type: this.previewType,
           watched: false,

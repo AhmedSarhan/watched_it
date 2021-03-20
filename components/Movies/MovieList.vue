@@ -23,7 +23,7 @@ export default {
   async fetch() {
     //console.log("running");
     await this.$axios
-      .get("/api/watch_list", {
+      .get("/watch_list", {
         params: {
           type: this.previewType,
           watched: true,
@@ -50,7 +50,7 @@ export default {
         this.$router.push("/auth");
       });
     await this.$axios
-      .get("/api/watch_list", {
+      .get("/watch_list", {
         params: {
           type: this.previewType,
           watched: false,
@@ -78,7 +78,7 @@ export default {
         this.$router.push("/auth");
       });
     await this.$axios
-      .get("/api/favorites", {
+      .get("/favorites", {
         params: { type: this.previewType },
       })
       .then((res) => {

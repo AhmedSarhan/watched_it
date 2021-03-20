@@ -221,7 +221,7 @@ export default {
         return;
       }
       this.$axios
-        .post("/api/users/register", {
+        .post("/users/register", {
           username: `${this.user.firstName} ${this.user.lastName}`,
           email: this.user.email,
           password: this.user.password,
