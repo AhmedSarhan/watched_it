@@ -51,7 +51,7 @@ export default {
     };
   },
   async fetch() {
-    await axios
+    await this.$axios
       .get("/watch_list", {
         params: {
           type: this.previewType,
