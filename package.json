@@ -1,19 +1,15 @@
 {
-  "name": "watched-it",
+  "name": "redirect",
   "version": "1.0.0",
-  "description": "a movie application with all the latest movies",
+  "description": "movie app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AhmedSarhan/watched_it.git"
+    "url": "n"
   },
   "author": "ahmed sarhan",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/AhmedSarhan/watched_it/issues"
-  },
-  "homepage": "https://github.com/AhmedSarhan/watched_it#readme"
+  "license": "ISC"
 }
