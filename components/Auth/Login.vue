@@ -71,23 +71,27 @@
 			</small>
 		</b-form>
 
-		<p class="my-3">
-			Don't have an account?
-			<button
-				class="btn btn-link"
-				@click="changeToRegisterHandler"
-				style="vertical-align: initial; padding: 0"
-			>
-				Sign up
-			</button>
-			now!
-		</p>
-		<div class="my-3">
-			<h3 class="text-center">
+		<div class="d-flex justify-content-center align-items-center my-3">
+			<p>
+				Don't have an account?
+				<button
+					class="btn btn-link"
+					@click="changeToRegisterHandler"
+					style="vertical-align: initial; padding: 0"
+				>
+					Sign up
+				</button>
+				now!
+			</p>
+			<button class="btn btn-link">Guest User</button>
+		</div>
+
+		<div class="my-3" v-if="testingCreds">
+			<h5 class="text-center">
 				You can test it using the following credintials ... but I encourage you
 				to have your own personal account
-			</h3>
-			<p class="py-3">Email: test15@gmail.com</p>
+			</h5>
+			<p class="pt-3 pb-1">Email: test15@gmail.com</p>
 			<p>Password: test12345</p>
 		</div>
 	</div>
@@ -107,6 +111,7 @@
 					password: "",
 				},
 				passType: "password",
+				testingCreds: false,
 			};
 		},
 		methods: {
