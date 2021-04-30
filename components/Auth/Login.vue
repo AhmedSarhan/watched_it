@@ -71,8 +71,8 @@
 			</small>
 		</b-form>
 
-		<div class="d-flex justify-content-center align-items-center my-3">
-			<p>
+		<div class="d-flex justify-content-between align-items-center my-3">
+			<p class="m-0">
 				Don't have an account?
 				<button
 					class="btn btn-link"
@@ -83,7 +83,9 @@
 				</button>
 				now!
 			</p>
-			<button class="btn btn-link">Guest User</button>
+			<button class="btn btn-link" @click="showTestingCredits">
+				Guest User
+			</button>
 		</div>
 
 		<div class="my-3" v-if="testingCreds">
@@ -146,6 +148,9 @@
 			},
 			changeToRegisterHandler() {
 				this.$emit("register");
+			},
+			showTestingCredits() {
+				this.testingCreds = !this.testingCreds;
 			},
 		},
 	};
